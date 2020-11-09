@@ -1,0 +1,16 @@
+py manage.py migrate
+migrate command used to make changes to database and project
+
+ctrl+c quits server
+
+create a debug.json > python > django
+
+__str__ method defaults what is show when you print()
+so, for print(Topic()), we would get the topic text and not all of the python jargon
+
+.models > . tells python to look in same folder for the file
+
+Django automatically creates primary keys 
+CASCADE of foreign keys means whatever happens to PK happens to rest of database
+
+class Meta handles internal workings of the model 
