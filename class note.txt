@@ -14,3 +14,8 @@ Django automatically creates primary keys
 CASCADE of foreign keys means whatever happens to PK happens to rest of database
 
 class Meta handles internal workings of the model 
+
+
+3 Steps for HTML:
+1. Connect urls.py in app folder to urls.py in project folder to render info from onto template
+2. Connect urls.py in app folder to views.py
