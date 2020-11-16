@@ -2,6 +2,12 @@
 {% block content %}
     <h1>Topics</h1>
     <body style="text-align:center;">
-        Here you can see all of the available topics for your Learning Logs.
+        <ul>
+            {% for topic in topics %} <!-- This is refering to the topics in the context dictionary in views.py-->
+                <li><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></li>
+            {% empty %}
+                <li>No topics have been added yet.</li>
+            {% endfor %}
+        </ul>
     </body>
 {% endblock content %}
