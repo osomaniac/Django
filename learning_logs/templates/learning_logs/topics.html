@@ -1,7 +1,7 @@
 {% extends "learning_logs/base.html" %} <!-- Allows us to inherit from base html file, thus keeping a site-wide heade, for example-->
 {% block content %}
     <h1>Topics</h1>
-    <body style="text-align:center;">
+    <body>
         <ul>
             {% for topic in topics %} <!-- This is refering to the topics in the context dictionary in views.py-->
                 <li><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></li>
@@ -9,5 +9,6 @@
                 <li>No topics have been added yet.</li>
             {% endfor %}
         </ul>
+        <a href="{% url 'learning_logs:new_topic' %}">Add a New Topic</a>
     </body>
 {% endblock content %}

@@ -1,16 +1,18 @@
 {% extends "learning_logs/base.html" %} <!-- Allows us to inherit from base html file, thus keeping a site-wide heade, for example-->
 {% block content %}
-    <body style="text-align:center;">
+    <body>
         <h1>Entries for {{ topic.text }}</h1>
         <ul>
             {% for e in entries %} <!-- This is refering to the topics in the context dictionary in views.py-->
                 <li>
-                    <p>{{ e.date_added }}</p>
-                    <p>{{ e.text }}</p>
+                    <p>{{ e.date_added|date:'M d, Y H:i' }}</p>
+                    <p>{{ e.text|linebreaks }}</p>
+                    <p><a href="{% url 'learning_logs:edit_entry' e.id %}">Edit Entry</a></p>
                 </li>
             {% empty %}
                 <li>No entries have been added yet.</li>
             {% endfor %}
         </ul>
+        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add a New Entry</a>
     </body>
 {% endblock content %}

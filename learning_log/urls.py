@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('learning_logs.urls')), ## leaving it '' makes it the homepage by default, including everything in our app
+    path('users/', include('users.urls')),
 ]
