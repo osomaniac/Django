@@ -1,18 +1,23 @@
-{% extends "learning_logs/base.html" %} <!-- Allows us to inherit from base html file, thus keeping a site-wide heade, for example-->
+{% extends 'learning_logs/base.html' %}
+{% block page_header %}
+    <h3>{{ topic }}</h3>
+{% endblock page_header %}
 {% block content %}
-    <body>
-        <h1>Entries for {{ topic.text }}</h1>
-        <ul>
-            {% for e in entries %} <!-- This is refering to the topics in the context dictionary in views.py-->
-                <li>
-                    <p>{{ e.date_added|date:'M d, Y H:i' }}</p>
-                    <p>{{ e.text|linebreaks }}</p>
-                    <p><a href="{% url 'learning_logs:edit_entry' e.id %}">Edit Entry</a></p>
-                </li>
-            {% empty %}
-                <li>No entries have been added yet.</li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add a New Entry</a>
-    </body>
+    <p>
+        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+    </p>
+    {% for entry in entries %}
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ entry.date_added|date:'M d, Y H:i' }}
+                <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
+                    edit entry</a></small>
+            </h4>
+            <div class="card-body">
+                {{ entry.text|linebreaks }}
+            </div>
+        </div>
+    {% empty %}
+        <p>There are no entries for this topic yet.</p>
+    {% endfor %}
 {% endblock content %}
