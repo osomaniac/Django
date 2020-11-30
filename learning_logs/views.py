@@ -19,13 +19,14 @@ def topics(request):
 @login_required
 def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
-    if topic.ower != request.user:
+    if topic.owner != request.user:
         raise Http404
     entries = topic.entry_set.order_by('-date_added') ## minus sign means descending order
 
     context = {'topic':topic,'entries':entries}
     return render(request, 'learning_logs/topic.html', context)
 
+@login_required
 def new_topic(request): ## get = read data from database, post = send data to database
     if request.method != 'POST':
         form = TopicForm()
@@ -36,14 +37,14 @@ def new_topic(request): ## get = read data from database, post = send data to da
             new_topic.owner = request.user
             form.save()
             return redirect('learning_logs:topics')
-            form.save()
+
     context = {'form':form}
     return render(request, 'learning_logs/new_topic.html', context)
 
 @login_required
 def new_entry(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
-    if topic.ower != request.user:
+    if topic.owner != request.user:
         raise Http404
     if request.method != 'POST':
         form = EntryForm()
@@ -62,7 +63,7 @@ def new_entry(request, topic_id):
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
-    if topic.ower != request.user:
+    if topic.owner != request.user:
         raise Http404
     if request.method != 'POST':
         form = EntryForm(instance=entry)
